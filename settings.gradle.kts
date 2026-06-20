@@ -24,4 +24,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "DQ-NetLibrary"
 include(":app")
- 
+include(":DQ-Net-Library")
