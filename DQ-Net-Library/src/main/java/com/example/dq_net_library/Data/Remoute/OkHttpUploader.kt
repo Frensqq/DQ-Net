@@ -61,7 +61,7 @@ class OkHttpUploader {
         username: String,
         avatarFile: File?
     ): User {
-        val url = "${baseUrl}collections/groups/records"
+        val url = "${baseUrl}collections/users/records"
 
         val body = if (avatarFile?.exists() == true) {
             Log.d("OkHttpUploader", "With avatar, size: ${avatarFile.length()} bytes")
