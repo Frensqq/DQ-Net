@@ -13,7 +13,7 @@ import kotlinx.serialization.json.Json
 
 object PBApiServis {
 
-    private const val BASE_URL = "http://109.120.184.101:8091/api/"
+    private const val BASE_URL = "http://109.120.184.101:8092/api/"
 
     private var token: String? = null
 
