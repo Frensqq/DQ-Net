@@ -85,7 +85,7 @@ class PBApi(
     }
 
     suspend fun otpAuth(otpId:String, otpCode: String): ResponseAuth {
-        return client.post(buildUrl("collections/users/request-otp")) {
+        return client.post(buildUrl("collections/users/auth-with-otp")) {
             contentType(ContentType.Application.Json)
             setBody(mapOf(
                 "otpId" to otpId ,
