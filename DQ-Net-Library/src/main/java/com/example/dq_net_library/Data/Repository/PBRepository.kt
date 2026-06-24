@@ -2,6 +2,9 @@ package com.example.dq_net_library.Data.Repository
 
 import android.content.Context
 import com.example.dq_net_library.Data.Remoute.PBApi
+import com.example.dq_net_library.Domain.Model.Cell.Cell
+import com.example.dq_net_library.Domain.Model.Cell.CreateCell
+import com.example.dq_net_library.Domain.Model.Cell.ResponsesCell
 import com.example.dq_net_library.Domain.Model.ErrorResponse
 import com.example.dq_net_library.Domain.Model.Game.AddPlayer
 import com.example.dq_net_library.Domain.Model.Game.Game
@@ -168,7 +171,7 @@ class PBRepositoryImpl(
     }
 
     override suspend fun deletePlayer(id: String): NetworkResult<Unit> = safeApiCall{
-        api.deleteUser(id)
+        api.deletePlayer(id)
     }
 
     override suspend fun getPlayer(id: String): NetworkResult<Player> = safeApiCall{
@@ -182,4 +185,21 @@ class PBRepositoryImpl(
     override suspend fun patchPlayer(id: String, request: RedactPlayer): NetworkResult<Player> = safeApiCall{
         api.patchPlayer(id,request)
     }
+
+    override suspend fun createCell(request: CreateCell): NetworkResult<Cell> = safeApiCall{
+        api.createCell(request)
+    }
+
+    override suspend fun deleteCell(id: String): NetworkResult<Unit> = safeApiCall{
+        api.deleteCell(id)
+    }
+
+    override suspend fun getCell(id: String): NetworkResult<Cell> = safeApiCall{
+        api.getCell(id)
+    }
+
+    override suspend fun getCells(filter: String?): NetworkResult<ResponsesCell> = safeApiCall{
+        api.getCells(filter)
+    }
+    
 }

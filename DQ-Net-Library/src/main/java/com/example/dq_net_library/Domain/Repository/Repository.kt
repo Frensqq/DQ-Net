@@ -1,5 +1,8 @@
 package com.example.dq_net_library.Domain.Repository
 
+import com.example.dq_net_library.Domain.Model.Cell.Cell
+import com.example.dq_net_library.Domain.Model.Cell.CreateCell
+import com.example.dq_net_library.Domain.Model.Cell.ResponsesCell
 import com.example.dq_net_library.Domain.Model.Game.AddPlayer
 import com.example.dq_net_library.Domain.Model.Game.Game
 import com.example.dq_net_library.Domain.Model.Game.GameResponses
@@ -56,5 +59,9 @@ interface Repository {
     suspend fun deletePlayer(id: String): NetworkResult<Unit>
     suspend fun patchPlayer(id: String, request: RedactPlayer): NetworkResult<Player>
 
-
+    //Cell
+    suspend fun getCell(id: String): NetworkResult<Cell>
+    suspend fun getCells(filter: String? = null): NetworkResult<ResponsesCell>
+    suspend fun deleteCell(id: String): NetworkResult<Unit>
+    suspend fun createCell(request: CreateCell): NetworkResult<Cell>
 }

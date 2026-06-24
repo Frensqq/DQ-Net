@@ -1,5 +1,8 @@
 package com.example.dq_net_library.Data.Remoute
 
+import com.example.dq_net_library.Domain.Model.Cell.Cell
+import com.example.dq_net_library.Domain.Model.Cell.CreateCell
+import com.example.dq_net_library.Domain.Model.Cell.ResponsesCell
 import com.example.dq_net_library.Domain.Model.Game.AddPlayer
 import com.example.dq_net_library.Domain.Model.Game.Game
 import com.example.dq_net_library.Domain.Model.Game.GameResponses
@@ -201,7 +204,28 @@ class PBApi(
         }.body()
     }
 
+    suspend fun getCell(id: String): Cell{
+        return client.get (
+            buildUrl("collections/Cell/records/$id")){
+        }.body()
+    }
 
+    suspend fun getCells(filter: String? = null): ResponsesCell{
+        return client.get (
+            buildUrl("collections/Cell/records")){
+            filter?.let { parameter("filter", it) }
+        }.body()
+    }
 
+    suspend fun deleteCell(id: String) {
+        client.delete(buildUrl("collections/Cell/records/$id"))
+    }
+
+    suspend fun createCell(request: CreateCell): Cell{
+        return client.post(buildUrl("collections/Cell/records")){
+            contentType(ContentType.Application.Json)
+            setBody(request)
+        }.body()
+    }
 
 }
