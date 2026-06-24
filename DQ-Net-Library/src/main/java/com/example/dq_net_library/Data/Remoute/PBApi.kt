@@ -1,5 +1,10 @@
 package com.example.dq_net_library.Data.Remoute
 
+import com.example.dq_net_library.Domain.Model.Game.AddPlayer
+import com.example.dq_net_library.Domain.Model.Game.Game
+import com.example.dq_net_library.Domain.Model.Game.GameResponses
+import com.example.dq_net_library.Domain.Model.Game.RedactGame
+import com.example.dq_net_library.Domain.Model.Game.RequestCreateGame
 import com.example.dq_net_library.Domain.Model.User.ResponseAuth
 import com.example.dq_net_library.Domain.Model.User.ResponseOtpRequest
 import com.example.dq_net_library.Domain.Model.User.User
@@ -113,4 +118,52 @@ class PBApi(
             )
         }
     }
+
+
+    fun getImageUrl(collectionId: String, recordId: String, fileName: String): String {
+        return "$baseUrl" + "files/$collectionId/$recordId/$fileName"
+    }
+
+
+    //game
+    suspend fun createGame(request: RequestCreateGame): Game{
+        return client.post ( buildUrl("/api/collections/Game/records")){
+            contentType(ContentType.Application.Json)
+            setBody(request)
+        }.body()
+    }
+
+    suspend fun getGame(id: String): Game{
+        return client.get (
+            buildUrl("collections/Game/records/$id")){
+        }.body()
+    }
+
+    suspend fun getGames(filter: String? = null): GameResponses{
+        return client.get (
+            buildUrl("collections/Game/records")){
+            filter?.let { parameter("filter", it) }
+        }.body()
+    }
+
+    suspend fun addPlayerGames(id: String, request: AddPlayer): Game{
+        return client.patch (
+            buildUrl("collections/Game/records/$id")){
+            setBody(request)
+        }.body()
+    }
+
+
+    suspend fun patchGames(id: String, request: RedactGame): GameResponses{
+        return client.patch (
+            buildUrl("collections/Game/records/$id")){
+            setBody(request)
+        }.body()
+    }
+
+
+
+
+
+
 }
