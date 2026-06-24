@@ -9,6 +9,10 @@ import com.example.dq_net_library.Domain.Model.Game.GameResponses
 import com.example.dq_net_library.Domain.Model.Game.RedactGame
 import com.example.dq_net_library.Domain.Model.Game.RequestCreateGame
 import com.example.dq_net_library.Domain.Model.NetworkResult
+import com.example.dq_net_library.Domain.Model.Player.CreatePlayer
+import com.example.dq_net_library.Domain.Model.Player.Player
+import com.example.dq_net_library.Domain.Model.Player.RedactPlayer
+import com.example.dq_net_library.Domain.Model.Player.ResponsesPlayers
 import com.example.dq_net_library.Domain.Model.User.ResponseAuth
 import com.example.dq_net_library.Domain.Model.User.ResponseOtpRequest
 import com.example.dq_net_library.Domain.Model.User.User
@@ -154,8 +158,28 @@ class PBRepositoryImpl(
         api.getGames(filter)
     }
 
-    override suspend fun patchGames(id: String, request: RedactGame): NetworkResult<GameResponses> = safeApiCall {
+    override suspend fun patchGames(id: String, request: RedactGame): NetworkResult<Game> = safeApiCall {
         api.patchGames(id,request)
     }
 
+
+    override suspend fun createPlayer(request: CreatePlayer): NetworkResult<Player> = safeApiCall{
+        api.createPlayer(request)
+    }
+
+    override suspend fun deletePlayer(id: String): NetworkResult<Unit> = safeApiCall{
+        api.deleteUser(id)
+    }
+
+    override suspend fun getPlayer(id: String): NetworkResult<Player> = safeApiCall{
+        api.getPlayer(id)
+    }
+
+    override suspend fun getPlayers(filter: String?): NetworkResult<ResponsesPlayers> = safeApiCall{
+        api.getPlayers(filter)
+    }
+
+    override suspend fun patchPlayer(id: String, request: RedactPlayer): NetworkResult<Player> = safeApiCall{
+        api.patchPlayer(id,request)
+    }
 }

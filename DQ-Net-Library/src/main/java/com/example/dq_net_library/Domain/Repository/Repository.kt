@@ -6,11 +6,16 @@ import com.example.dq_net_library.Domain.Model.Game.GameResponses
 import com.example.dq_net_library.Domain.Model.Game.RedactGame
 import com.example.dq_net_library.Domain.Model.Game.RequestCreateGame
 import com.example.dq_net_library.Domain.Model.NetworkResult
+import com.example.dq_net_library.Domain.Model.Player.CreatePlayer
+import com.example.dq_net_library.Domain.Model.Player.Player
+import com.example.dq_net_library.Domain.Model.Player.RedactPlayer
+import com.example.dq_net_library.Domain.Model.Player.ResponsesPlayers
 import com.example.dq_net_library.Domain.Model.User.ResponseAuth
 import com.example.dq_net_library.Domain.Model.User.ResponseOtpRequest
 import com.example.dq_net_library.Domain.Model.User.User
 import com.example.dq_net_library.Domain.Model.User.UserResponses
 import io.ktor.client.call.body
+import io.ktor.client.request.delete
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.client.request.patch
@@ -42,7 +47,14 @@ interface Repository {
     suspend fun getGame(id: String): NetworkResult<Game>
     suspend fun getGames(filter: String? = null): NetworkResult<GameResponses>
     suspend fun addPlayerGames(id: String, request: AddPlayer): NetworkResult<Game>
-    suspend fun patchGames(id: String, request: RedactGame): NetworkResult<GameResponses>
+    suspend fun patchGames(id: String, request: RedactGame): NetworkResult<Game>
+
+    //Player
+    suspend fun createPlayer(request: CreatePlayer): NetworkResult<Player>
+    suspend fun getPlayer(id: String): NetworkResult<Player>
+    suspend fun getPlayers(filter: String? = null): NetworkResult<ResponsesPlayers>
+    suspend fun deletePlayer(id: String): NetworkResult<Unit>
+    suspend fun patchPlayer(id: String, request: RedactPlayer): NetworkResult<Player>
 
 
 }
