@@ -210,10 +210,15 @@ class PBApi(
         }.body()
     }
 
-    suspend fun getCells(filter: String? = null): ResponsesCell{
-        return client.get (
-            buildUrl("collections/Cell/records")){
+    suspend fun getCells(
+        filter: String? = null,
+        page: Int? = null,
+        perPage: Int? = null
+    ): ResponsesCell {
+        return client.get(buildUrl("collections/Cell/records")) {
             filter?.let { parameter("filter", it) }
+            page?.let { parameter("page", it) }
+            perPage?.let { parameter("perPage", it) }
         }.body()
     }
 

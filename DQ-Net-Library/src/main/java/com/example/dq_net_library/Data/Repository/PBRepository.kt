@@ -198,8 +198,12 @@ class PBRepositoryImpl(
         api.getCell(id)
     }
 
-    override suspend fun getCells(filter: String?): NetworkResult<ResponsesCell> = safeApiCall{
-        api.getCells(filter)
+    override suspend fun getCells(
+        filter: String?,
+        page: Int?,
+        perPage: Int?
+    ): NetworkResult<ResponsesCell> = safeApiCall{
+        api.getCells(filter,page,perPage)
     }
 
 

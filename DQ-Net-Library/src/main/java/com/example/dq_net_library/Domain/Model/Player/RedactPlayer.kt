@@ -1,9 +1,10 @@
 package com.example.dq_net_library.Domain.Model.Player
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class RedactPlayer(
-    val state: String,
-    val position: String,
-    val protect: Boolean,
-    val Bonus: String,
-    val Event: String,
+    val position: Int = 0,
+    val shield: Boolean = false,
+    val finished: Boolean = false,
 )

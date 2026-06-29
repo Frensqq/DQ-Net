@@ -5,10 +5,10 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class CreatePlayer (
     val userId: String,
-    val BOT: Boolean,
-    val state: String,
-    val position: String,
-    val protect: Boolean,
-    val Bonus: String,
-    val Event: String,
+    val gameId: String,
+    val isBot: Boolean = false,
+    val position: Int = 0,
+    val shield: Boolean = false,
+    val finished: Boolean = false,
+    val turnOrder: Int = 0,
 )

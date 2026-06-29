@@ -61,7 +61,15 @@ interface Repository {
 
     //Cell
     suspend fun getCell(id: String): NetworkResult<Cell>
-    suspend fun getCells(filter: String? = null): NetworkResult<ResponsesCell>
+
+
+    suspend fun getCells(
+        filter: String? = null,
+        page: Int? = null,
+        perPage: Int? = null
+    ):NetworkResult<ResponsesCell>
+
+
     suspend fun deleteCell(id: String): NetworkResult<Unit>
     suspend fun createCell(request: CreateCell): NetworkResult<Cell>
 }

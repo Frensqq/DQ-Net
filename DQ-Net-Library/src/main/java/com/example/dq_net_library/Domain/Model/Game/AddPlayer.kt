@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class AddPlayer(
     val players: List<String>,
-    val countPlayer:Int,
+    val countPlayer: Double,
 )
