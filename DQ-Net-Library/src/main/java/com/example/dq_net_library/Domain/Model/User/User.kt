@@ -1,4 +1,5 @@
 package com.example.dq_net_library.Domain.Model.User
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 
 @Serializable

@@ -1,5 +1,17 @@
 package com.example.dq_net_library.Data.Remoute
 
+import com.example.dq_net_library.Domain.Model.Cell.Cell
+import com.example.dq_net_library.Domain.Model.Cell.CreateCell
+import com.example.dq_net_library.Domain.Model.Cell.ResponsesCell
+import com.example.dq_net_library.Domain.Model.Game.AddPlayer
+import com.example.dq_net_library.Domain.Model.Game.Game
+import com.example.dq_net_library.Domain.Model.Game.GameResponses
+import com.example.dq_net_library.Domain.Model.Game.RedactGame
+import com.example.dq_net_library.Domain.Model.Game.RequestCreateGame
+import com.example.dq_net_library.Domain.Model.Player.CreatePlayer
+import com.example.dq_net_library.Domain.Model.Player.Player
+import com.example.dq_net_library.Domain.Model.Player.RedactPlayer
+import com.example.dq_net_library.Domain.Model.Player.ResponsesPlayers
 import com.example.dq_net_library.Domain.Model.User.ResponseAuth
 import com.example.dq_net_library.Domain.Model.User.ResponseOtpRequest
 import com.example.dq_net_library.Domain.Model.User.User
@@ -85,7 +97,7 @@ class PBApi(
     }
 
     suspend fun otpAuth(otpId:String, otpCode: String): ResponseAuth {
-        return client.post(buildUrl("collections/users/request-otp")) {
+        return client.post(buildUrl("collections/users/auth-with-otp")) {
             contentType(ContentType.Application.Json)
             setBody(mapOf(
                 "otpId" to otpId ,
@@ -113,4 +125,112 @@ class PBApi(
             )
         }
     }
+
+
+    fun getImageUrl(collectionId: String, recordId: String, fileName: String): String {
+        return "$baseUrl" + "files/$collectionId/$recordId/$fileName"
+    }
+
+
+    //game
+    suspend fun createGame(request: RequestCreateGame): Game{
+        return client.post ( buildUrl("collections/Game/records")){
+            contentType(ContentType.Application.Json)
+            setBody(request)
+        }.body()
+    }
+
+    suspend fun getGame(id: String): Game{
+        return client.get (
+            buildUrl("collections/Game/records/$id")){
+        }.body()
+    }
+
+    suspend fun getGames(filter: String? = null): GameResponses{
+        return client.get (
+            buildUrl("collections/Game/records")){
+            filter?.let { parameter("filter", it) }
+        }.body()
+    }
+
+    suspend fun addPlayerGames(id: String, request: AddPlayer): Game{
+        return client.patch (
+            buildUrl("collections/Game/records/$id")){
+            contentType(ContentType.Application.Json)
+            setBody(request)
+        }.body()
+    }
+
+
+    suspend fun patchGames(id: String, request: RedactGame): Game{
+        return client.patch (
+            buildUrl("collections/Game/records/$id")){
+            contentType(ContentType.Application.Json)
+            setBody(request)
+        }.body()
+    }
+
+    //Players
+
+    suspend fun createPlayer(request: CreatePlayer): Player{
+        return client.post(buildUrl("collections/Player/records")){
+            contentType(ContentType.Application.Json)
+            setBody(request)
+        }.body()
+    }
+
+    suspend fun getPlayer(id: String): Player{
+        return client.get (
+            buildUrl("collections/Player/records/$id")){
+        }.body()
+    }
+
+    suspend fun getPlayers(filter: String? = null): ResponsesPlayers{
+        return client.get (
+            buildUrl("collections/Player/records")){
+            filter?.let { parameter("filter", it) }
+        }.body()
+    }
+
+    suspend fun deletePlayer(id: String) {
+        client.delete(buildUrl("collections/Player/records/$id"))
+    }
+
+    suspend fun patchPlayer(id: String, request: RedactPlayer): Player{
+        return client.patch (
+            buildUrl("collections/Player/records/$id")){
+            contentType(ContentType.Application.Json)
+            setBody(request)
+        }.body()
+    }
+
+    suspend fun getCell(id: String): Cell{
+        return client.get (
+            buildUrl("collections/Cell/records/$id")){
+        }.body()
+    }
+
+    suspend fun getCells(
+        filter: String? = null,
+        page: Int? = null,
+        perPage: Int? = null
+    ): ResponsesCell {
+        return client.get(buildUrl("collections/Cell/records")) {
+            filter?.let { parameter("filter", it) }
+            page?.let { parameter("page", it) }
+            perPage?.let { parameter("perPage", it) }
+        }.body()
+    }
+
+    suspend fun deleteCell(id: String) {
+        client.delete(buildUrl("collections/Cell/records/$id"))
+    }
+
+    suspend fun createCell(request: CreateCell): Cell{
+        return client.post(buildUrl("collections/Cell/records")){
+            contentType(ContentType.Application.Json)
+            setBody(request)
+        }.body()
+    }
+
 }
